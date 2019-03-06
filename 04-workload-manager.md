@@ -140,7 +140,7 @@ The output will look more or less like this:
 ```
 username@delta-login1:~$ squ
     JOBID PARTITION PRIOR     NAME     USER    STATE       TIME  TIME_LIMIT  NODES CPUS   GRES           START_TIME     NODELIST(REASON)      QOS
-      452      long  2008 interact     username  RUNNING      23:23     1:00:00      1   20 (null)  2017-08-09T11:14:54                c001   normal
+      452      long  2008 interact username  RUNNING      23:23     1:00:00      1   20 (null)  2017-08-09T11:14:54                 c001   normal
 ```
 
 ### How much memory do I need?

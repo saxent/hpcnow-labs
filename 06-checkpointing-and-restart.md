@@ -31,7 +31,7 @@ interactive
 
 The native C&R will depend on the used application or code.
 - Periodic Checkpointing
-  If your code creates a checkpoint file per cycle, and you know how long it takes, you can set a minimum time limit on the job description. If specified, the job may have it's --time limit lowered to a value no lower than --time-min if doing so permits the job to begin execution earlier than otherwise possible. The job's time limit will not be changed after the job is allocated resources. This is performed by a backfill scheduling algorithm to allocate resources otherwise reserved for higher priority jobs. Acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".
+  If your code creates a checkpoint file per cycle, and you know how long it takes, you can set a minimum time limit on the job description. If specified, the job may have its --time limit lowered to a value no lower than --time-min if doing so permits the job to begin execution earlier than otherwise possible. The job's time limit will not be changed after the job is allocated resources. This is performed by a backfill scheduling algorithm to allocate resources otherwise reserved for higher priority jobs. Acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".
 
 ```
 #SBATCH --time-min=HH:MM:SS
