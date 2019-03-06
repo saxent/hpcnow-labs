@@ -11,7 +11,7 @@ HPCNow!, hereby disclaims all copyright interest in this document
 `hpcnow-labs' written by Jordi Blasco.
 -->
 # HPC User Training
-This folder contains the required material to deliver trainings to HPCNow! customers. The content of this repository is distributed under GPLv3 license.
+This repository contains the required material to deliver trainings to HPCNow! customers. The content of this repository is distributed under GPLv3 license.
 
 As part of the community effort, we would like to encourage you to contribute with feedback, improving the quality and including new training material to speed up the learning curve of the end users.
 
