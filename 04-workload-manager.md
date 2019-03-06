@@ -107,11 +107,11 @@ Slurm gives each job a priority, and works to free up appropriate resources for 
 The following temporary folders are created for each job. Once the job is completed, the content of those folders is removed.
 Those temporary folders are meant to be used to perform high io operations. In order to take advantage of these high performance file systems, you will need to stage in and out the required files.
 
-| File System  | Environment Variable | Real Path                        |
-| ------------ | -------------------- | -------------------------------- |
-| local disk   | ```$TMP_DIR```       | /tmp/jobs/$USER/$SLURM_JOBID     |
-| local memory | ```$SHM_DIR```       | /dev/shm/jobs/$USER/$SLURM_JOBID |
-| cluster FS   | ```$SCRATCH_DIR```   | /scratch/jobs/$USER/$SLURM_JOBID |
+| File System  | Environment Variable | Real Path                             |
+| ------------ | -------------------- | ------------------------------------- |
+| local disk   | ```$TMP_DIR```       | /localscratch/jobs/$USER/$SLURM_JOBID |
+| local memory | ```$SHM_DIR```       | /dev/shm/jobs/$USER/$SLURM_JOBID      |
+| cluster FS   | ```$SCRATCH_DIR```   | /gpfs/scratch/jobs/$USER/$SLURM_JOBID |
 
 ### Examples of submitting jobs
 
