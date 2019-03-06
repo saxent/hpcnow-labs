@@ -21,7 +21,7 @@ Cluster account.
 Laptop with SSH client.
 
 ## ToDo
-Access to the login node
+Access the login node
 
 ### Understand difference between login and compute nodes
 
@@ -38,8 +38,8 @@ In order to test the code and interact with the command line, you can use the ``
  - performing memory intensive operations
 
 **The login nodes are used for:**
- - access to the cluster
- - access to your home and project directories
+ - accessing the cluster
+ - accessing your home and project directories
  - upload your data and/or the code
  - download the results
  - submit and manage batch jobs
@@ -58,6 +58,7 @@ Because interactive is using valuable resources (real compute nodes) there is a 
 Usage: interactive [-A] [-a] [-c] [-m] [-J] [-e]
 
 Optional arguments:
+     -d: dry run
      -A: account (non-default account)
      -p: partition (default: )
      -a: architecture (default: , values hsw=Haswell skl=SkyLake wsw=Warsaw)
@@ -66,11 +67,12 @@ Optional arguments:
      -m: amount of memory (GB) per core (default: 1 [GB])
      -e: email address to which the begin session notification is to be sent
      -r: specify a reservation name
+     -g: specify a GRES (i.e. gpu)
      -w: target node
      -J: job name
      -x: binary that you want to run interactively
-example : interactive -A snow -a hsw -c 4 -J MyFirstInteractiveJob
-example : interactive -A snow -a hsw -c 4 -J MyFirstInteractiveJob -x "MyBinary MyOptions"
+example : interactive -A username -a hsw -c 4 -J MyFirstInteractiveJob
+example : interactive -A username -a hsw -c 4 -J MyFirstInteractiveJob -x "MyBinary MyOptions"
 
 Written by: Alan Orth <a.orth@cgiar.org>
 Modified by: Jordi Blasco <jordi.blasco@hpcnow.com>
@@ -84,7 +86,7 @@ cp -p /etc/slurm/slurm.env $HOME/.slurm.env
 And update the values as you wish. Example
 
 ```
-DEF_PARTITION=interactive
+DEF_PARTITION=express
 DEF_ARCH=skl
 DEF_MEM_PER_CPU=4
 DEF_NUM_CPUS=4
@@ -108,7 +110,7 @@ interactive
 You can use a variety of software already installed on the cluster. The software is usually build with EasyBuild and/or Spack by the SysAdmins of the cluster and accessible using LMOD.
 
 ### User Environment
-LMOD is very useful to manage environment variables for each application and it is very easy to use. It loads the needed environment by a certain application and its dependencies automatically. The command line is fully compatible with the previous 'Environment Modules', and it provides simple short-cuts and advanced features.
+LMOD is very useful to manage environment variables for each application and it is very easy to use. It loads the needed environment by a certain application and its dependencies automatically. The command line is fully compatible with the previous 'Environment Modules', and it provides simple shortcuts and advanced features.
 
 Syntax :```module [options] sub-command [args ...]```
 
@@ -126,9 +128,9 @@ Syntax :```module [options] sub-command [args ...]```
 * ```spider``` module" List all possible version of that module file
 * ```spider``` string: List all module that contain the "string".
 
-#### Short-cuts
+#### Shortcuts
 LMOD reduce the complexity of module syntax and also the chances to make a mistake while typing the command :-)
-All the examples used in these hands-on sessions are using ```ml`` short-cut.
+All the examples used in these hands-on sessions are using ```ml`` shortcut.
 * ```ml``` - is a wrapper for module and also means ```module list```
 * ```ml foo bar``` - means: module load foo bar
 * ```ml -foo -bar baz goo``` - means: module unload foo bar; module load baz goo;

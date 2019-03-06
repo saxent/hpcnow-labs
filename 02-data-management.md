@@ -27,7 +27,7 @@ Laptop with SSH client.
 Now you can transfer the files you have downloaded in the cluster to your laptop. We are going to use different tools and explain the advantages of each one.
 
 ### Using a GUI
-If you are using MobaXterm, you can use the drang'n'drop user interface which this program offers.
+If you are using MobaXterm, you can use the drag and drop user interface which this program offers.
 
 ### Using Secure Copy
 
@@ -48,7 +48,7 @@ scp -rp username@delta-login1.pfizer.com:<destination_path> <origin_path>
 
 ```
 
-If you have created a new SSH key for accessing to the cluster, you need to specify the path:
+If you have created a new SSH key for accessing the cluster, you need to specify the path:
 
 ```
 scp -rp -i ~/.ssh/id_rsa_XXXX <origin_path> username@delta-login1.pfizer.com:<destination_path>
@@ -75,11 +75,11 @@ Options:
 
 ### Transfering large amount of data
 
-If you need to transfer really large among of data, you should consider to use [High Performance SSH/SCP - HPN-SSH](https://www.psc.edu/hpn-ssh) which is able to provide much better performance than regular SSH. In order to take advantage of HPN-SSH, you need HPN-SSH in the server and also in the client. If don't want to patch your ssh client, you can use this [docker container](https://hub.docker.com/r/yantis/ssh-hpn-x/):
+If you need to transfer really large among of data, you should consider to use [High Performance SSH/SCP - HPN-SSH](https://www.psc.edu/hpn-ssh) which is able to provide much better performance than regular SSH. In order to take advantage of HPN-SSH, you need HPN-SSH in the server and also in the client. If you don't want to patch your ssh client, you can use this [docker container](https://hub.docker.com/r/yantis/ssh-hpn-x/):
 
 ### File System Quotas
 Quite often the cluster administrators setup quotas to define upper limits in disk space and number of files in critical portions of shared file systems.
-Each cluster file system has its own commands to query how much space and ionodes are left for your home directory or project directory.
+Each cluster file system has its own commands to query how much space and inodes are left for your home directory or project directory.
 
 #### NFS
 
@@ -99,4 +99,4 @@ mmlsquota -u $HOME
 ```
 #### BeeGFS
 
-BeeGFS does not has quota but quite often Systems Administrators setup a policy engine (RobinHood) which triggers some actions once a user or a group hits a limit. It could be restrict the job submission or disable the user account in the login node.
+BeeGFS does not have quota but quite often Systems Administrators setup a policy engine (RobinHood) which triggers some actions once a user or a group hits a limit. It could be restrict the job submission or disable the user account in the login node.

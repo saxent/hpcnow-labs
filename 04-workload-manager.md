@@ -122,12 +122,12 @@ sbatch -t 00:01:00 --wrap "sleep 30; echo hello world"
 ```
 
 * The `-t` option stands for *time* and sets a limit on the total run time of the job allocation.
-* If no time limit is defined, the maximum time limit available in the longest partition will be applied.
+* If no time limit is defined an error message will be thrown and the job will not be submitted.
 * The `--wrap` option means that the following string (in "") will be turned by Slurm in a simple shell script.
 
 ### Monitoring your work on the cluster
 The jobs are scheduled in terms of your relative job priority. Slurm can estimate when the job is going to be scheduled (START_TIME).
-The default command to list batch jobs is ```squeue```. sNow! provides an alias which provides additional information like the priority or the estimated starttime.
+The default command to list batch jobs is ```squeue```. Some alias were generated in order to provide additional information like the priority or the estimated starttime.
 * sq list all the jobs
 * squ list all your jobs
 
@@ -138,9 +138,9 @@ squ
 The output will look more or less like this:
 
 ```
-snow@login01:~$ squ
+username@delta-login1:~$ squ
     JOBID PARTITION PRIOR     NAME     USER    STATE       TIME  TIME_LIMIT  NODES CPUS   GRES           START_TIME     NODELIST(REASON)      QOS
-      452      high  2008 interact     snow  RUNNING      23:23     1:00:00      1   20 (null)  2017-08-09T11:14:54                skl01   normal
+      452      long  2008 interact username  RUNNING      23:23     1:00:00      1   20 (null)  2017-08-09T11:14:54                 c001   normal
 ```
 
 ### How much memory do I need?
@@ -177,7 +177,7 @@ scancel [jobid]
 If you want to cancell all your jobs, you can use the ```-u $USER``` as option. Example:
 
 ```
-scancel -u snow
+scancel -u username
 ```
 
 ### Slurm scripts examples
@@ -270,13 +270,13 @@ In order to build the code you will need to load the following environment:
 
 ```
 ml eb/2019
-ml intel/2017a
+ml intel/2018b
 ```
 
 Move to the folder ```examples/Cardiac_demo``` and build the example code with:
 
 ```
-cd $HOME/hpcnow-labs/user-training/examples/Cardiac_demo
+cd $HOME/hpcnow-labs/examples/Cardiac_demo
 mkdir build
 cd build
 mpiicpc ../heart_demo.cpp ../luo_rudy_1991.cpp ../rcm.cpp ../mesh.cpp -g \
@@ -286,7 +286,7 @@ mpiicpc ../heart_demo.cpp ../luo_rudy_1991.cpp ../rcm.cpp ../mesh.cpp -g \
 Using the ```cardiac_demo.sh``` submit script and the following command lines, you should be able to submit a serial job, OpenMP job, MPI job and finally a hybrid job (MPI + OpenMP):
 
 ```
-cd $HOME/hpcnow-labs/user-training/examples/
+cd $HOME/hpcnow-labs/examples/
 sbatch --ntasks=1  --cpus-per-task=1  cardiac_demo.sh
 sbatch --ntasks=1  --cpus-per-task=16 cardiac_demo.sh
 sbatch --ntasks=16 --cpus-per-task=1  cardiac_demo.sh
@@ -308,7 +308,7 @@ The following option will allow to require topology aware allocation:
 --switches=<count>[@<max-time>]
 ```
 
-The count parameter defines the maximum count of switches desired for the job allocation and the max-time (optional) parameter the maximum time to wait for that number of switches. The will job remain pending until it either finds an allocation with desired switch count or the time limit expires. By default the max-time is 5 minutes and the users can request less time but not more than that.
+The count parameter defines the maximum count of switches desired for the job allocation and the max-time (optional) parameter the maximum time to wait for that number of switches. The job will remain pending until it either finds an allocation with desired switch count or the time limit expires. By default the max-time is 5 minutes and the users can request less time but not more than that.
 Acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".
 
 Another way to achieve the same, could be using switches as constraints but this assumes that your Slurm configuration already contemplates that.
@@ -324,7 +324,7 @@ srun --profile=task --acctg-freq=5 your_binary
 
 ```--acctg-freq``` is the sampling rate in seconds.
 
- In order to merge the node local files in /scratch/profiling/${USER} to single file, we suggest you add the following line at the end of your submit script
+ In order to merge the files in /gpfs/scratch/profiling/${USER} to single file, we suggest you add the following line at the end of your submit script
 
 ```
 sh5util -j $SLURM_JOBID -o profile.h5
