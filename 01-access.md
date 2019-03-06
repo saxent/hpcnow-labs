@@ -12,7 +12,7 @@ HPCNow!, hereby disclaims all copyright interest in this document
 -->
 # Hands-On 01: Getting access to the cluster
 
-In this hands-on, we are going to setup the required software in order to be able to access to the High Performance Computing cluster.
+In this hands-on, we are going to setup the required software in order to be able to access the High Performance Computing cluster.
 
 *Estimated time : 15 minutes*
 
