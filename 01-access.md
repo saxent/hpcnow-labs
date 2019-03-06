@@ -42,6 +42,8 @@ ssh-keygen -t rsa
 ssh-copy-id -i ~/.ssh/id_rsa username@delta-login1.pfizer.com
 ```
 
+:heavy_exclamation_mark: The server delta-login1.pfizer.com is only accesible from Pfizer network.
+
 :heavy_exclamation_mark: Replace the ```username``` with the user provided by the trainer.
 
 :heavy_exclamation_mark: The default SSH key is located in the following path ```~/.ssh/id_rsa```. If you have created a different one, replace the path to the SSH key.
@@ -65,5 +67,5 @@ source ~/.bashrc
 ### Download the training material into your home directory:
 
 ```
-git clone --recursive https://github.com/HPCNow/hpcnow-labs
+git clone --recursive https://github.com/PfizerRD/hpcnow-labs
 ```
