@@ -12,6 +12,7 @@
 #SBATCH --time=00:10:00
 #SBATCH --mem-per-cpu=6144
 # Load the development environment module
+ml eb/2019
 ml intel/2018b
 # Transfer required input files to the shared (temporary) file system
 cp $HOME/hpcnow-labs/user-training/examples/Cardiac_demo/mesh_mid* $SCRATCH_DIR/
