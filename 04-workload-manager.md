@@ -113,6 +113,24 @@ Those temporary folders are meant to be used to perform high io operations. In o
 | local memory | ```$SHM_DIR```       | /dev/shm/jobs/$USER/$SLURM_JOBID      |
 | cluster FS   | ```$SCRATCH_DIR```   | /gpfs/scratch/jobs/$USER/$SLURM_JOBID |
 
+### Partitions
+
+The express, short, medium and long queue names refers to the walltime limit. This priority of each queue is defined based on the walltime limit. The more walltime, the less priority.
+The express queue is the only queue able to preempt other preemptable queues, long and requeue, by using job suspension and job requeue respectively. 
+The requeue queue targets those applications that are capable to generate a checkpoint and then restart from last cycle.
+The main purpose of the OnDemand queue is to route jobs requesting a lot of resources or very uneven allocation (large memory but low core count).
+The nodes with GPUs do not need any special queue. It only requires to setup as consumable resources.
+
+|  Queue   | Walltime  | Priority  | Max Cores | Preemption | Backfill |
+| -------- | --------- | --------- | --------- | ---------- | -------- |
+| long     |       7d  |        20 |       528 | suspension |    no    |
+| medium   |       1d  |        20 |      100% |    no      |    no    |
+| short    |       6h  |        50 |      100% |    no      |   yes    |
+| express  |       2h  |        60 |      100% |    no      |   yes    |
+| requeue  | Unlimited |        20 |      100% |  requeue   |    no    |
+| OnDemand | Unlimited |        10 |       528 |    no      |    no    |
+| viz      | Unlimited |        60 |         - |    no      |    no    |
+
 ### Examples of submitting jobs
 
 Let's submit the first batch job with Slurm. We will do it using the `sbatch` command to interact with Slurm.
@@ -297,6 +315,37 @@ Once you have done that, consider to:
 * list your jobs: ```squ```
 * check the output files: ```slurm-xxxx.out```
 * explore how much memory has been used in each job: ```sacct -o JobID,MaxVMSize,ReqMem -j xxxxx```
+
+## Important Notes
+
+### Scalability and Speedup
+HPCNow! suggests evaluating the scalability of the models in order to maximise the efficiency of the cluster. This is specially important when users need to migrate the workloads to a new platform. Evaluating the scale and the expected runtime of the jobs is a challenge.
+
+* Some problems are *embarrassingly parallel* i.e. it is trivial to divide the problem and solve independently or run simulation with 1000 different initial conditions. In those cases, close to a linear speedup is expected.
+* Other problems have dependencies and they cannot be separated.
+* Speed up depends what % of the program runtime can be parallelised.
+
+![Amdahl's law](images/Amdahl.png?raw=true "Amdahl's law")
+Amdahl's law (or Amdahl's argument) is a formula which gives the theoretical speedup in latency of the execution of a task at fixed workload that can be expected of a system whose resources are improved.
+
+In the real cases, adding more cores will not necessary increase the speed. This is specially important for latency sensitive applications.
+![migrate scalability](images/migrate_scalability.png?raw=true "migrate scalability")
+
+### Parallel execution time
+In general, the computation time for a single core execution is defined by computation only. While the computation time for a parallel execution is the combination of computation, communication and waiting.
+
+In addition to that:
+* Writing results (to one file) is often a bottleneck.
+* For a small problem on many cores, the communication cost will dominate.
+* Unbalanced load: one core will mainly wait on the other.
+
+Every MPI call will be affected by the network latency (L), and the bandwidth (BW). The MPI communication overhead is defined by:
+
+```
+T = MessageSize/BW + L
+```
+
+*Recomendation*: Test which number of cores is best suited for your problem.
 
 ## Advanced Features
 
