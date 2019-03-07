@@ -12,9 +12,9 @@ HPCNow!, hereby disclaims all copyright interest in this document
 -->
 # Hands-On 04: Workload Manager
 
-In this hands-on, we are going to interact with the workload manager by submitting different type of jobs, listing and cancelling them.
+In this hands-on, we are going to interact with the workload manager by submitting a different type of jobs, listing and cancelling them.
 
-*Estimated time : 30 minutes*
+*Estimated time: 60 minutes*
 
 ## Requirements
 Cluster account.
@@ -29,7 +29,7 @@ interactive
 
 ## Slurm Workload Manager
 Slurm is the software responsible for managing and allocating the cluster resources when you submit a job.
-You need to define the job requirements in order to submit a job. The most common used parameters are:
+You need to define the job requirements in order to submit a job. The most commonly used parameters are:
 
 * ```-J JobName``` Job name
 * ```--time=DD-HH:MM:SS```: The expected time the job will run for (walltime). Format DD=days, HH=hours, MM=minutes, SS= seconds
@@ -45,11 +45,11 @@ You can define those requirements as options of the ```sbatch``` command or incl
 ```
 #!/bin/bash
 #SBATCH -J JobName
-#SBATCH --time=08:00:00	  	# Walltime
-#SBATCH --mem-per-cpu=4096	# memory/cpu (in MB)
-#SBATCH --ntasks=2		    # 2 tasks
-#SBATCH --cpus-per-task=4	# number of cores per task
-#SBATCH --nodes=1		    # number of nodes
+#SBATCH --time=08:00:00          # Walltime
+#SBATCH --mem-per-cpu=4096    # memory/cpu (in MB)
+#SBATCH --ntasks=2            # 2 tasks
+#SBATCH --cpus-per-task=4    # number of cores per task
+#SBATCH --nodes=1            # number of nodes
 ```
 
 ### Nodes and Job States
@@ -72,7 +72,7 @@ You can define those requirements as options of the ```sbatch``` command or incl
 
 ### Default priority
 
-Slurm gives each job a priority, and works to free up appropriate resources for the highest-priority job. At regular intervals, Slurm will recalculate the priorities of all jobs. The priority is based on different factors, each one with different weight:
+Slurm gives each job a priority and works to free up appropriate resources for the highest-priority job. At regular intervals, Slurm will recalculate the priorities of all jobs. The priority is based on different factors, each one with different weight:
 
 * *Fairshare*: your job will be given an initial score based on your share and your historical use of the cluster, with your recent use being given more weight.
 * *Partition priority*: the partitions priority is defined attending to the job length. So, the longer is the job, the less priority it will have.
@@ -105,7 +105,7 @@ Slurm gives each job a priority, and works to free up appropriate resources for 
 
 ### Temporary folders
 The following temporary folders are created for each job. Once the job is completed, the content of those folders is removed.
-Those temporary folders are meant to be used to perform high io operations. In order to take advantage of these high performance file systems, you will need to stage in and out the required files.
+Those temporary folders are meant to be used to perform high io operations. In order to take advantage of these high-performance file systems, you will need to stage in and out the required files.
 
 | File System  | Environment Variable | Real Path                             |
 | ------------ | -------------------- | ------------------------------------- |
@@ -115,9 +115,9 @@ Those temporary folders are meant to be used to perform high io operations. In o
 
 ### Partitions
 
-* The express, short, medium and long queue names refers to the walltime limit. This priority of each queue is defined based on the walltime limit. The more walltime, the less priority.
+* The express, short, medium and long queue names refer to the walltime limit. This priority of each queue is defined based on the walltime limit. The more walltime, the less priority.
 * The express queue is the only queue able to preempt other preemptable queues, long and requeue, by using job suspension and job requeue respectively. 
-* The requeue queue targets those applications that are capable to generate a checkpoint and then restart from last cycle.
+* The requeue queue targets those applications that are capable to generate a checkpoint and then restart from the last cycle.
 * The main purpose of the OnDemand queue is to route jobs requesting a lot of resources or very uneven allocation (large memory but low core count).
 * The nodes with GPUs do not need any special queue. It only requires to setup as consumable resources.
 
@@ -162,7 +162,7 @@ username@delta-login1:~$ squ
 ```
 
 ### How much memory do I need?
-If you request more memory than your job actually needs, the job may wait in the queue for much longer than necessary. If you don't request enough memory, your job may crash, or else run very slowly. The best way to ascertain how much memory is needed, is to run ONE job using a large amount of memory, and review the statistics with sacct, after this job is completed.
+If you request more memory than your job actually needs, the job may wait in the queue for much longer than necessary. If you don't request enough memory, your job may crash, or else run very slowly. The best way to ascertain how much memory is needed is to run ONE job using a large amount of memory, and review the statistics with sacct, after this job is completed.
 
 ```
 sacct -j 8030  -o JobID,MaxVMSize,ReqMem
@@ -192,7 +192,7 @@ In order to cancel a pending or running job you can execute the following comman
 scancel [jobid]
 ```
 
-If you want to cancell all your jobs, you can use the ```-u $USER``` as option. Example:
+If you want to cancel all your jobs, you can use the ```-u $USER``` as an option. Example:
 
 ```
 scancel -u username
@@ -277,10 +277,10 @@ srun binary_cuda_mpi
 
 #### Real examples
 There is a quite extensive list of real applications submit scripts available in the [HPCNow! github](https://github.com/HPCNow/SubmitScripts/blob/master/Slurm/).
-Please, feel free to clone and pull new request to include more examples.
+Please, feel free to clone and pull new requests to include more examples.
 
 ### Submitting and managing jobs
-In this section we are going to submit few jobs using an example code. We found [heart_demo](https://github.com/CardiacDemo/Cardiac_demo.git) really useful code for teaching the very basics of HPC and also for teaching performance analysis (hands-on 08 to 10).
+In this section, we are going to submit a few jobs using example code. We found [heart_demo](https://github.com/CardiacDemo/Cardiac_demo.git) really useful code for teaching the very basics of HPC and also for teaching performance analysis (hands-on 08 to 10).
 
 The "heart_demo" project is developed by Alexey Malkhanov (Intel) and it implements minimal functionality for a real-time 3D cardiac electrophysiology simulation. More information about this project available [here](https://github.com/CardiacDemo/Cardiac_demo.git).
 
@@ -311,7 +311,7 @@ sbatch --ntasks=16 --cpus-per-task=1  cardiac_demo.sh
 sbatch --ntasks=4  --cpus-per-task=4  cardiac_demo.sh
 ```
 
-Once you have done that, consider to:
+Once you have done that, consider:
 * list your jobs: ```squ```
 * check the output files: ```slurm-xxxx.out```
 * explore how much memory has been used in each job: ```sacct -o JobID,MaxVMSize,ReqMem -j xxxxx```
@@ -319,20 +319,20 @@ Once you have done that, consider to:
 ## Important Notes
 
 ### Scalability and Speedup
-HPCNow! suggests evaluating the scalability of the models in order to maximise the efficiency of the cluster. This is specially important when users need to migrate the workloads to a new platform. Evaluating the scale and the expected runtime of the jobs is a challenge.
+HPCNow! suggests evaluating the scalability of the models in order to maximise the efficiency of the cluster. This is especially important when users need to migrate the workloads to a new platform. Evaluating the scale and the expected runtime of the jobs is a challenge.
 
-* Some problems are *embarrassingly parallel* i.e. it is trivial to divide the problem and solve independently or run simulation with 1000 different initial conditions. In those cases, close to a linear speedup is expected.
+* Some problems are *embarrassingly parallel* i.e. it is trivial to divide the problem and solve independently or run a simulation with 1000 different initial conditions. In those cases, close to a linear speedup is expected.
 * Other problems have dependencies and they cannot be separated.
-* Speed up depends what % of the program runtime can be parallelised.
+* Speed up depends on what % of the program runtime can be parallelised.
 
 ![Amdahl's law](images/Amdahl.png?raw=true "Amdahl's law")
 Amdahl's law (or Amdahl's argument) is a formula which gives the theoretical speedup in latency of the execution of a task at fixed workload that can be expected of a system whose resources are improved.
 
-In the real cases, adding more cores will not necessary increase the speed. This is specially important for latency sensitive applications.
+In real cases, adding more cores will not necessarily increase the speed. This is especially important for latency sensitive applications.
 ![migrate scalability](images/migrate_scalability.png?raw=true "migrate scalability")
 
 ### Parallel execution time
-In general, the computation time for a single core execution is defined by computation only. While the computation time for a parallel execution is the combination of computation, communication and waiting.
+In general, the computation time for a single core execution is defined by computation only. While the computation time for parallel execution is the combination of computation, communication and waiting.
 
 In addition to that:
 * Writing results (to one file) is often a bottleneck.
@@ -345,28 +345,28 @@ Every MPI call will be affected by the network latency (L), and the bandwidth (B
 T = MessageSize/BW + L
 ```
 
-*Recomendation*: Test which number of cores is best suited for your problem.
+*Recommendation*: Test which the number of cores is best suited for your problem.
 
 ## Advanced Features
 
 ### Topology Aware Scheduling
-If your code is latency sensitive, we suggest to take advantage of the topology aware scheduling and reduce unnecessary latency by limiting the number of switches for the job allocation.
-The following option will allow to require topology aware allocation:
+If your code is latency sensitive, we suggest to take advantage of the topology-aware scheduling and reduce unnecessary latency by limiting the number of switches for the job allocation.
+The following option will allow requiring topology aware allocation:
 
 ```
 --switches=<count>[@<max-time>]
 ```
 
-The count parameter defines the maximum count of switches desired for the job allocation and the max-time (optional) parameter the maximum time to wait for that number of switches. The job will remain pending until it either finds an allocation with desired switch count or the time limit expires. By default the max-time is 5 minutes and the users can request less time but not more than that.
+The count parameter defines the maximum count of switches desired for the job allocation and the max-time (optional) parameter the maximum time to wait for that number of switches. The job will remain pending until it either finds an allocation with desired switch count or the time limit expires. By default, the max-time is 5 minutes and the users can request less time but not more than that.
 
 Acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".
 
-Another way to achieve the same, could be using switches as constraints but this assumes that your Slurm configuration already contemplates that.
+Another way to achieve the same could be using switches as constraints but this assumes that your Slurm configuration already contemplates that.
 
 ### Native job profiling
 Slurm native job profiling allows you to gather profiling data from every task and allocated node of your job. At this time the metrics that we can collect are CPU frequency, CPU utilisation, memory consumption (RSS and VMSize) and I/O.
 
-The data is sampled at a fixed rate and is stored in a HDF5 file. Please be aware that the required disk space for the profiling data may be quite large, depending on job size, runtime, and sampling rate.
+The data is sampled at a fixed rate and is stored in an HDF5 file. Please be aware that the required disk space for the profiling data may be quite large, depending on job size, runtime, and sampling rate.
 
 In order to use this feature, add the following option in the srun command line in your submission script:
 
