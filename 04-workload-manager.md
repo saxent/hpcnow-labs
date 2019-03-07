@@ -47,9 +47,9 @@ You can define those requirements as options of the ```sbatch``` command or incl
 #SBATCH -J JobName
 #SBATCH --time=08:00:00	  	# Walltime
 #SBATCH --mem-per-cpu=4096	# memory/cpu (in MB)
-#SBATCH --ntasks=2		       # 2 tasks
-#SBATCH --cpus-per-task=4	 # number of cores per task
-#SBATCH --nodes=1		        # number of nodes
+#SBATCH --ntasks=2		    # 2 tasks
+#SBATCH --cpus-per-task=4	# number of cores per task
+#SBATCH --nodes=1		    # number of nodes
 ```
 
 ### Nodes and Job States
@@ -115,11 +115,11 @@ Those temporary folders are meant to be used to perform high io operations. In o
 
 ### Partitions
 
-The express, short, medium and long queue names refers to the walltime limit. This priority of each queue is defined based on the walltime limit. The more walltime, the less priority.
-The express queue is the only queue able to preempt other preemptable queues, long and requeue, by using job suspension and job requeue respectively. 
-The requeue queue targets those applications that are capable to generate a checkpoint and then restart from last cycle.
-The main purpose of the OnDemand queue is to route jobs requesting a lot of resources or very uneven allocation (large memory but low core count).
-The nodes with GPUs do not need any special queue. It only requires to setup as consumable resources.
+* The express, short, medium and long queue names refers to the walltime limit. This priority of each queue is defined based on the walltime limit. The more walltime, the less priority.
+* The express queue is the only queue able to preempt other preemptable queues, long and requeue, by using job suspension and job requeue respectively. 
+* The requeue queue targets those applications that are capable to generate a checkpoint and then restart from last cycle.
+* The main purpose of the OnDemand queue is to route jobs requesting a lot of resources or very uneven allocation (large memory but low core count).
+* The nodes with GPUs do not need any special queue. It only requires to setup as consumable resources.
 
 |  Queue   | Walltime  | Priority  | Max Cores | Preemption | Backfill |
 | -------- | --------- | --------- | --------- | ---------- | -------- |
@@ -358,13 +358,16 @@ The following option will allow to require topology aware allocation:
 ```
 
 The count parameter defines the maximum count of switches desired for the job allocation and the max-time (optional) parameter the maximum time to wait for that number of switches. The job will remain pending until it either finds an allocation with desired switch count or the time limit expires. By default the max-time is 5 minutes and the users can request less time but not more than that.
+
 Acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".
 
 Another way to achieve the same, could be using switches as constraints but this assumes that your Slurm configuration already contemplates that.
 
 ### Native job profiling
 Slurm native job profiling allows you to gather profiling data from every task and allocated node of your job. At this time the metrics that we can collect are CPU frequency, CPU utilisation, memory consumption (RSS and VMSize) and I/O.
+
 The data is sampled at a fixed rate and is stored in a HDF5 file. Please be aware that the required disk space for the profiling data may be quite large, depending on job size, runtime, and sampling rate.
+
 In order to use this feature, add the following option in the srun command line in your submission script:
 
 ```
