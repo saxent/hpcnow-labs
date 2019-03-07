@@ -129,7 +129,6 @@ Those temporary folders are meant to be used to perform high io operations. In o
 | express  |       2h  |        60 |      100% |    no      |   yes    |
 | requeue  | Unlimited |        20 |      100% |  requeue   |    no    |
 | OnDemand | Unlimited |        10 |       528 |    no      |    no    |
-| viz      | Unlimited |        60 |         - |    no      |    no    |
 
 ### Examples of submitting jobs
 
