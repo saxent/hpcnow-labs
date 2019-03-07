@@ -123,8 +123,8 @@ Those temporary folders are meant to be used to perform high io operations. In o
 
 |  Queue   | Walltime  | Priority  | Max Cores | Preemption | Backfill |
 | -------- | --------- | --------- | --------- | ---------- | -------- |
-| long     |       7d  |        20 |       528 | suspension |    no    |
-| medium   |       1d  |        20 |      100% |    no      |    no    |
+| long     |       7d  |        30 |       528 | suspension |    no    |
+| medium   |       1d  |        40 |      100% |    no      |    no    |
 | short    |       6h  |        50 |      100% |    no      |   yes    |
 | express  |       2h  |        60 |      100% |    no      |   yes    |
 | requeue  | Unlimited |        20 |      100% |  requeue   |    no    |
