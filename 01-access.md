@@ -63,6 +63,7 @@ The previous command is quite long and easy to forget. You can create an alias f
 echo "alias delta='ssh username@delta-login1.pfizer.com -X'" >> ~/.bashrc
 source ~/.bashrc
 ```
+:heavy_exclamation_mark: If you are using mobaxterm, use ```~/.bash_profile``` instead of ```~/.bashrc```
 
 ### Download the training material into your home directory:
 
