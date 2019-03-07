@@ -80,6 +80,8 @@ Slurm gives each job a priority and works to free up appropriate resources for t
 * *Job size*: jobs for which (number of cores) / (walltime) is greater get more priority.
 * *wait time*: a job gets more priority as it waits. This wait-time bonus gradually increases over a certain period of time.
 
+The command *sprio* provides a detailed overview of relative priority of each factor for every job.
+
 ## Running a job
 
 ### Most common Slurm commands
@@ -325,9 +327,11 @@ HPCNow! suggests evaluating the scalability of the models in order to maximise t
 * Speed up depends on what % of the program runtime can be parallelised.
 
 ![Amdahl's law](images/Amdahl.png?raw=true "Amdahl's law")
+
 Amdahl's law (or Amdahl's argument) is a formula which gives the theoretical speedup in latency of the execution of a task at fixed workload that can be expected of a system whose resources are improved.
 
 In real cases, adding more cores will not necessarily increase the speed. This is especially important for latency sensitive applications.
+
 ![migrate scalability](images/migrate_scalability.png?raw=true "migrate scalability")
 
 ### Parallel execution time
